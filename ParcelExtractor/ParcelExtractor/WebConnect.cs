@@ -18,6 +18,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
+
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +76,13 @@ namespace ParcelExtractor
 			var stream = await response.Content.ReadAsStreamAsync();
 			var serializer = new XmlSerializer(typeof(Envelope));
 			return (Envelope)serializer.Deserialize(stream);
+		}
+
+		public async Task<bool> QueryAppendAsync(List<Parcel> parcels, SearchType searchType, string query = "", string query2 = "")
+		{
+			var envelope = await QueryAsync(searchType, query, query2);
+			parcels.AddRange(envelope.Results);
+			return true;
 		}
 	}
 }

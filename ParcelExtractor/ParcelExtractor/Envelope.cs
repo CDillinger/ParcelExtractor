@@ -18,6 +18,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
+
+using System;
 using System.Xml.Serialization;
 
 namespace ParcelExtractor
@@ -28,6 +30,8 @@ namespace ParcelExtractor
 	{
 		[XmlElement("Body")]
 		public Body Body { get; set; }
+		public Parcel[] Results { get { return Body.Response.Results; } }
+		public bool HasResults { get { return Results.Length > 0; } }
 	}
 
 	[XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
@@ -118,5 +122,10 @@ namespace ParcelExtractor
 
 		[XmlElement("geom")]
 		public string Geom { get; set; }
+
+		public Uri AssessingDataURI
+		{
+			get { return new Uri(string.Format("https://is.bsasoftware.com/bsa.is/AssessingServices/ServiceAssessingDetails.aspx?p=1&dp={0}&i=1&appid=0&unit=383", PIN)); }
+		}
 	}
 }
