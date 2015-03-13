@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcelExtractor", "ParcelExtractor\ParcelExtractor.csproj", "{C88E284A-AF4B-46D6-93DF-3D11FE1BD667}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcelExtractor.Core", "ParcelExtractor.Core\ParcelExtractor.Core.csproj", "{C88E284A-AF4B-46D6-93DF-3D11FE1BD667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcelExtractor", "ParcelExtractor\ParcelExtractor.csproj", "{D1BF9F74-5DD4-4869-8610-DDAA1114323D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C88E284A-AF4B-46D6-93DF-3D11FE1BD667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C88E284A-AF4B-46D6-93DF-3D11FE1BD667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C88E284A-AF4B-46D6-93DF-3D11FE1BD667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1BF9F74-5DD4-4869-8610-DDAA1114323D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1BF9F74-5DD4-4869-8610-DDAA1114323D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1BF9F74-5DD4-4869-8610-DDAA1114323D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1BF9F74-5DD4-4869-8610-DDAA1114323D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

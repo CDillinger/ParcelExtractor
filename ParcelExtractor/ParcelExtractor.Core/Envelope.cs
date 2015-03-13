@@ -22,7 +22,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ParcelExtractor
+namespace ParcelExtractor.Core
 {
 	[XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
 	[XmlRoot("Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", IsNullable = false)]

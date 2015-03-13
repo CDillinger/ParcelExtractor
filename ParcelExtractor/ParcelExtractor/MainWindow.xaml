@@ -1,0 +1,103 @@
+﻿<!--
+
+ ParcelExtractor - Ingham County Parcel Data Extraction
+ Copyright (C) 2015  Collin Dillinger
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+-->
+<Window x:Class="ParcelExtractor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ingham County Parcel Data Extraction" MinHeight="400" MinWidth="600" Height="500" Width="750">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="7*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="450"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="76"/>
+				<RowDefinition Height="10"/>
+				<RowDefinition Height="76"/>
+				<RowDefinition Height="10"/>
+				<RowDefinition Height="76"/>
+			</Grid.RowDefinitions>
+
+			<!-- Parcel Number -->
+			<Border BorderThickness="0.5" Grid.Row="0" CornerRadius="15" BorderBrush="#FF616161">
+				<Grid VerticalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="105"/>
+						<ColumnDefinition Width="253"/>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="10"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="1" Text="Parcel Number"/>
+					<TextBox Grid.Column="2" x:Name="ParcelNumberTextBox"/>
+					<Button Grid.Column="4" x:Name="ParcelNumberSearchButton" Content="Search"></Button>
+				</Grid>
+			</Border>
+
+			<!-- Owner Last Name -->
+			<Border BorderThickness="0.5" Grid.Row="2" CornerRadius="15" BorderBrush="#FF616161">
+				<Grid VerticalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="105"/>
+						<ColumnDefinition Width="253"/>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="10"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="1" Text="Owner Last Name"/>
+					<TextBox Grid.Column="2" x:Name="OwnerLastNameTextBox"/>
+					<Button Grid.Column="4" x:Name="OwnerLastNameSearchButton" Content="Search"></Button>
+				</Grid>
+			</Border>
+
+			<!-- Address -->
+			<Border BorderThickness="0.5" Grid.Row="4" CornerRadius="15" BorderBrush="#FF616161">
+				<Grid VerticalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="105"/>
+						<ColumnDefinition Width="69"/>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="75"/>
+						<ColumnDefinition Width="99"/>
+						<ColumnDefinition Width="10"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="10"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="1" Text="Street Number"/>
+					<TextBox Grid.Column="2" x:Name="StreetNumberTextBox"/>
+					<TextBlock Grid.Column="4" Text="Street Name"/>
+					<TextBox Grid.Column="5" x:Name="StreetNameTextBox"/>
+					<Button Grid.Column="7" x:Name="AddressSearchButton" Content="Search"></Button>
+				</Grid>
+			</Border>
+
+		</Grid>
+	</Grid>
+</Window>
