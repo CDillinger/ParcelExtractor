@@ -33,6 +33,7 @@ namespace ParcelExtractor
 	public partial class MainWindow : Window
 	{
 		private readonly WebConnect _connector;
+		private bool _isQuerying = false;
 
 		public MainWindow()
 		{
@@ -76,6 +77,13 @@ namespace ParcelExtractor
 
 		private async Task QueryAsync(WebConnect.SearchType searchType, string query = "", string query2 = "")
 		{
+			if (_isQuerying)
+			{
+				MessageBoxEx.Show(this, "Please wait for the current query to finish...");
+				return;
+			}
+
+
 			if (query == "" && query2 == "")
 			{
 				MessageBoxEx.Show(this, "Please enter a search query!");
@@ -87,6 +95,7 @@ namespace ParcelExtractor
 			SecondaryStatusTextBlock.Text = "0 Results";
 			StatusProgressBar.Value = 0;
 			MainStatusTextBlock.Text = "Querying...";
+			_isQuerying = true;
 
 			var results = await _connector.QueryAsync(searchType, query, query2);
 
@@ -95,6 +104,7 @@ namespace ParcelExtractor
 			SecondaryStatusTextBlock.Text = results.Results.Length == 1 ? results.Results.Length + " Result" : results.Results.Length + " Results";
 			StatusProgressBar.Value = 100;
 			MainStatusTextBlock.Text = "Ready";
+			_isQuerying = false;
 
 			if (!results.HasResults)
 				MessageBoxEx.Show(this, "The query returned no results.", "No Results!");
