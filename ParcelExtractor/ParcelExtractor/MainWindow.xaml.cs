@@ -18,7 +18,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
+
 using System.Windows;
+using ParcelExtractor.Core;
+using System.Threading.Tasks;
 
 namespace ParcelExtractor
 {
@@ -27,9 +30,39 @@ namespace ParcelExtractor
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private readonly WebConnect _connector;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			_connector = new WebConnect();
+		}
+
+		private async void ParcelNumberSearchButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			await QueryAsync(WebConnect.SearchType.ParcelNumber, ParcelNumberTextBox.Text);
+		}
+
+		private async void OwnerLastNameSearchButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			await QueryAsync(WebConnect.SearchType.LastName, OwnerLastNameTextBox.Text);
+		}
+
+		private async void AddressSearchButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			await QueryAsync(WebConnect.SearchType.Address, StreetNumberTextBox.Text, StreetNameTextBox.Text);
+		}
+
+		private async Task QueryAsync(WebConnect.SearchType searchType, string query = "", string query2 = "")
+		{
+			StatusProgressBar.Value = 0;
+			MainStatusTextBlock.Text = "Querying...";
+			var results = await _connector.QueryAsync(searchType, query, query2);
+			SecondaryStatusTextBlock.Text = results.Results.Length == 1 ? results.Results.Length + " Result" : results.Results.Length + " Results";
+			StatusProgressBar.Value = 100;
+			MainStatusTextBlock.Text = "Ready";
+			if (!results.HasResults)
+				MessageBox.Show("The query returned no results.", "No Results!");
 		}
 	}
 }

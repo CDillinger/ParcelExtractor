@@ -66,7 +66,7 @@ namespace ParcelExtractor.Core
 		public async Task<Envelope> QueryAsync(SearchType searchType, string query = "", string query2 = "")
 		{
 			if (searchType == SearchType.Address)
-				query = string.Format("{0},{1}", query2, query);
+				query = string.Format("{0},{1}", query, query2);
 
 			// Query the service
 			var response = await _client.PostAsync("http://ingham-equalization.rsgis.msu.edu/ParcelServiceApp/ParcelServiceApp.svc", new StringContent(ComposeRequestString(searchType, query), Encoding.UTF8, "text/xml"));

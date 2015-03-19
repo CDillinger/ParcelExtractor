@@ -18,10 +18,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Threading.Tasks;
+
 using System.Windows;
 
 namespace ParcelExtractor
