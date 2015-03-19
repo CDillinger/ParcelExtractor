@@ -25,7 +25,7 @@ namespace ParcelExtractor.Core
 {
 	public class ConnectionFailedException : Exception
 	{
-		public ConnectionFailedException() : base("Connection to the database failed!") { }
+		public ConnectionFailedException() : base("Connection to the database failed! Please check your internet connection.") { }
 
 		public ConnectionFailedException(string message) : base(message) { }
 

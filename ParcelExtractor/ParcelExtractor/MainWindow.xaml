@@ -56,7 +56,7 @@
 						<ColumnDefinition Width="10"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Grid.Column="1" Text="Parcel Number"/>
-					<TextBox Grid.Column="2" x:Name="ParcelNumberTextBox"/>
+					<TextBox Grid.Column="2" x:Name="ParcelNumberTextBox" PreviewKeyDown="ParcelNumberTextBox_OnPreviewKeyDown"/>
 					<Button Grid.Column="4" x:Name="ParcelNumberSearchButton" Content="Search" Click="ParcelNumberSearchButton_OnClick"/>
 				</Grid>
 			</Border>
@@ -73,7 +73,7 @@
 						<ColumnDefinition Width="10"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Grid.Column="1" Text="Owner Last Name"/>
-					<TextBox Grid.Column="2" x:Name="OwnerLastNameTextBox"/>
+					<TextBox Grid.Column="2" x:Name="OwnerLastNameTextBox" PreviewKeyDown="OwnerLastNameTextBox_OnPreviewKeyDown"/>
 					<Button Grid.Column="4" x:Name="OwnerLastNameSearchButton" Content="Search" Click="OwnerLastNameSearchButton_OnClick"/>
 				</Grid>
 			</Border>
@@ -93,9 +93,9 @@
 						<ColumnDefinition Width="10"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Grid.Column="1" Text="Street Number"/>
-					<TextBox Grid.Column="2" x:Name="StreetNumberTextBox"/>
+					<TextBox Grid.Column="2" x:Name="StreetNumberTextBox" PreviewKeyDown="AddressTextBox_OnPreviewKeyDown"/>
 					<TextBlock Grid.Column="4" Text="Street Name"/>
-					<TextBox Grid.Column="5" x:Name="StreetNameTextBox"/>
+					<TextBox Grid.Column="5" x:Name="StreetNameTextBox" PreviewKeyDown="AddressTextBox_OnPreviewKeyDown"/>
 					<Button Grid.Column="7" x:Name="AddressSearchButton" Content="Search" Click="AddressSearchButton_OnClick"/>
 				</Grid>
 			</Border>

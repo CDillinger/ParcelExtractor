@@ -20,6 +20,8 @@
  */
 
 using System.Windows;
+using System.Windows.Threading;
+using ParcelExtractor.Core;
 
 namespace ParcelExtractor
 {
@@ -28,5 +30,25 @@ namespace ParcelExtractor
 	/// </summary>
 	public partial class App : Application
 	{
+		private static MainWindow _mainWindow;
+
+		App()
+		{
+			DispatcherUnhandledException += OnDispatcherUnhandledException;
+		}
+
+		private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+		{
+			e.Handled = true;
+			if (e.Exception.GetType() == typeof (ConnectionFailedException))
+				_mainWindow.ShowExceptionMessage(e.Exception.Message, "Connection Failed!");
+			else
+				_mainWindow.ShowExceptionMessageOfferReport(e.Exception);
+		}
+
+		public static void SetMainWindow(MainWindow mainWindow)
+		{
+			_mainWindow = mainWindow;
+		}
 	}
 }
