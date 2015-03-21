@@ -69,6 +69,8 @@ namespace ParcelExtractor.Core
 			if (searchType == SearchType.Address)
 				query = string.Format("{0},{1}", query, query2);
 
+			query = StringUtils.EncodeXML(query);
+
 			// Try to query the service...
 			try
 			{
