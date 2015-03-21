@@ -24,6 +24,7 @@ using System.Windows;
 using ParcelExtractor.Core;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace ParcelExtractor
 {
@@ -33,7 +34,7 @@ namespace ParcelExtractor
 	public partial class MainWindow : Window
 	{
 		private readonly WebConnect _connector;
-		private bool _isQuerying = false;
+		private bool _isQuerying;
 
 		public MainWindow()
 		{
@@ -107,7 +108,25 @@ namespace ParcelExtractor
 			_isQuerying = false;
 
 			if (!results.HasResults)
+			{
 				MessageBoxEx.Show(this, "The query returned no results.", "No Results!");
+				return;
+			}
+
+			var dialog = new SaveFileDialog
+			{
+				AddExtension = true,
+				FileName = query + ".csv",
+				Filter = "Comma Seperated Value Files (*.csv)|*.csv|Text Files (*.txt)|*.txt",
+				DefaultExt = "csv",
+				OverwritePrompt = true
+			};
+			var success = (bool)dialog.ShowDialog(this);
+			if (!success)
+				return;
+
+			var file = dialog.FileName;
+			Exporter.ExportToCSV(results, file);
 		}
 
 		public void ShowExceptionMessageOfferReport(Exception exception)
