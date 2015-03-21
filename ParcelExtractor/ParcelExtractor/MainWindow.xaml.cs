@@ -20,6 +20,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using ParcelExtractor.Core;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace ParcelExtractor
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private string[] _chars = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		private readonly WebConnect _connector;
 		private bool _isQuerying;
 
@@ -92,7 +94,7 @@ namespace ParcelExtractor
 			}
 
 			// Reset everything
-			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = false;
+			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = GetAllButton.IsEnabled = false;
 			SecondaryStatusTextBlock.Text = "0 Results";
 			StatusProgressBar.Value = 0;
 			MainStatusTextBlock.Text = "Querying...";
@@ -101,7 +103,7 @@ namespace ParcelExtractor
 			var results = await _connector.QueryAsync(searchType, query, query2);
 
 			// Update everything
-			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = true;
+			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = GetAllButton.IsEnabled = true;
 			SecondaryStatusTextBlock.Text = results.Results.Length == 1 ? results.Results.Length + " Result" : results.Results.Length + " Results";
 			StatusProgressBar.Value = 100;
 			MainStatusTextBlock.Text = "Ready";
@@ -142,6 +144,57 @@ namespace ParcelExtractor
 		public void ShowExceptionMessage(string text, string caption)
 		{
 			MessageBoxEx.Show(this, text, caption, MessageBoxButton.OK);
+		}
+
+		private async void GetAllButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			var parcels = new List<Parcel>();
+
+			if (_isQuerying)
+			{
+				MessageBoxEx.Show(this, "Please wait for the current query to finish...");
+				return;
+			}
+
+			// Reset everything
+			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = GetAllButton.IsEnabled = false;
+			SecondaryStatusTextBlock.Text = "0 Results";
+			StatusProgressBar.Value = 0;
+			MainStatusTextBlock.Text = "Querying...";
+			_isQuerying = true;
+
+			for (var i = 0; i < _chars.Length; i++)
+			{
+				MainStatusTextBlock.Text = string.Format("Querying Last Names: {0}...", _chars[i].ToUpper());
+
+				await _connector.QueryAppendAsync(parcels, WebConnect.SearchType.LastName, _chars[i]);
+
+				// Update everything
+				SecondaryStatusTextBlock.Text = parcels.Count == 1 ? parcels.Count + " Result" : parcels.Count + " Results";
+				StatusProgressBar.Value = (double)(i + 1) * 100 / _chars.Length;
+			}
+
+			// Complete!
+			ParcelNumberSearchButton.IsEnabled = OwnerLastNameSearchButton.IsEnabled = AddressSearchButton.IsEnabled = GetAllButton.IsEnabled = true;
+			SecondaryStatusTextBlock.Text = parcels.Count == 1 ? parcels.Count + " Result" : parcels.Count + " Results";
+			StatusProgressBar.Value = 100;
+			MainStatusTextBlock.Text = "Ready";
+			_isQuerying = false;
+
+			var dialog = new SaveFileDialog
+			{
+				AddExtension = true,
+				FileName = "all.csv",
+				Filter = "Comma Seperated Value Files (*.csv)|*.csv|Text Files (*.txt)|*.txt",
+				DefaultExt = "csv",
+				OverwritePrompt = true
+			};
+			var success = (bool)dialog.ShowDialog(this);
+			if (!success)
+				return;
+
+			var file = dialog.FileName;
+			Exporter.ExportToCSV(parcels, file);
 		}
 	}
 }
