@@ -52,6 +52,17 @@ namespace ParcelExtractor.Core
 			return str;
 		}
 
+		public static string HandleIssues(string str)
+		{
+			if ((str.StartsWith("\"") && !str.EndsWith("\"")) || (!str.StartsWith("\"") && str.EndsWith("\"")))
+				str = str.Substring(1);
+
+			if (str.Contains(",") && !str.Contains("\""))
+				str = "\"" + str + "\"";
+
+			return str;
+		}
+
 		public static string UnencodeXML(string str)
 		{
 			if (str.Contains("&amp;"))
