@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ParcelExtractor.Core.Models;
 
 namespace ParcelExtractor.Core
 {
@@ -108,6 +109,56 @@ namespace ParcelExtractor.Core
 			}
 
 			return str;
+		}
+
+		public static string ParcelPropertyClassToFriendlyString(ParcelPropertyClass propertyClass)
+		{
+			switch (propertyClass)
+			{
+				case ParcelPropertyClass.Exempt:
+					return "Exempt";
+				case ParcelPropertyClass.ExemptPersonalProperty:
+					return "Exempt - Personal Property";
+				case ParcelPropertyClass.ExemptRealProperty:
+					return "Exempt - Real Property";
+				case ParcelPropertyClass.AgriculturalPropertyImproved:
+					return "Agricultural Property - Improved";
+				case ParcelPropertyClass.AgriculturalPropertyVacant:
+					return "Agricultural Property - Vacant";
+				case ParcelPropertyClass.MichiganDNR:
+					return "Michigan Department of Natural Resources";
+				case ParcelPropertyClass.CommercialPropertyImproved:
+					return "Commercial Property - Improved";
+				case ParcelPropertyClass.CommercialPropertyVacant:
+					return "Commercial Property - Vacant";
+				case ParcelPropertyClass.CommercialPropertyCondos:
+					return "Commercial Property - Condominiums";
+				case ParcelPropertyClass.IndustrialPropertyImproved:
+					return "Industrial Property - Improved";
+				case ParcelPropertyClass.IndustrialPropertyVacant:
+					return "Industrial Property - Vacant";
+				case ParcelPropertyClass.ResidentialPropertyImproved:
+					return "Residential Property - Improved";
+				case ParcelPropertyClass.ResidentialPropertyVacant:
+					return "Residential Property - Vacant";
+				case ParcelPropertyClass.PrivateRoad:
+					return "Private Road";
+				case ParcelPropertyClass.DevelopmentalPropertyImproved:
+					return "Developmental Property - Improved";
+				case ParcelPropertyClass.DevelopmentalPropertyVacant:
+					return "Developmental Property - Vacant";
+				case ParcelPropertyClass.OPRAFrozen:
+					return "Obsolete Property Rehabilitation Act - Frozen";
+				case ParcelPropertyClass.LandBank:
+					return "Land Bank Ownership";
+				case ParcelPropertyClass.CountyLandBankSale:
+				case ParcelPropertyClass.CountyLandBankSale2:
+					return "County Land Bank Sale";
+				case ParcelPropertyClass.RefundPersonalProperty:
+					return "Refund - Personal Property";
+				default:
+					return "Unknown";
+			}
 		}
 	}
 }

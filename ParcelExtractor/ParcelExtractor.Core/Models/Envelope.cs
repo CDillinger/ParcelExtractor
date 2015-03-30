@@ -22,8 +22,33 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ParcelExtractor.Core
+namespace ParcelExtractor.Core.Models
 {
+	public enum ParcelPropertyClass
+	{
+		Exempt = 000,
+		ExemptPersonalProperty = 090,
+		ExemptRealProperty = 099,
+		AgriculturalPropertyImproved = 101,
+		AgriculturalPropertyVacant = 102,
+		MichiganDNR = 110,
+		CommercialPropertyImproved = 201,
+		CommercialPropertyVacant = 202,
+		CommercialPropertyCondos = 207,
+		IndustrialPropertyImproved = 301,
+		IndustrialPropertyVacant = 302,
+		ResidentialPropertyImproved = 401,
+		ResidentialPropertyVacant = 402,
+		PrivateRoad = 500,
+		DevelopmentalPropertyImproved = 601,
+		DevelopmentalPropertyVacant = 602,
+		OPRAFrozen = 941,
+		LandBank = 985,
+		CountyLandBankSale = 986,
+		CountyLandBankSale2 = 988,
+		RefundPersonalProperty = 999
+	}
+
 	[XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
 	[XmlRoot("Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", IsNullable = false)]
 	public class Envelope
@@ -162,11 +187,24 @@ namespace ParcelExtractor.Core
 			set { _propertyCity = value; }
 		}
 
+		[XmlIgnore]
+		public ParcelPropertyClass PropertyClass
+		{
+			get { return (ParcelPropertyClass)_propertyClass; }
+			set { _propertyClass = (uint)value; }
+		}
+
 		[XmlElement("PropertyClass")]
-		public uint PropertyClass // TODO: get enum values
+		public uint PropertyClassNumber
 		{
 			get { return _propertyClass; }
 			set { _propertyClass = value; }
+		}
+
+		[XmlIgnore]
+		public string PropertyClassString
+		{
+			get { return StringUtils.ParcelPropertyClassToFriendlyString((ParcelPropertyClass)_propertyClass); }
 		}
 
 		[XmlElement("PropertyDirection")]

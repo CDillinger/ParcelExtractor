@@ -21,6 +21,7 @@
 
 using Microsoft.Win32;
 using ParcelExtractor.Core;
+using ParcelExtractor.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using ParcelExtractor.Core.Models;
 
 namespace ParcelExtractor.Core
 {
@@ -44,7 +45,7 @@ namespace ParcelExtractor.Core
 					builder.Append(',');
 					builder.Append(parcel.PropertyZIP);
 					builder.Append(',');
-					builder.Append(parcel.PropertyClass);
+					builder.Append(parcel.PropertyClassNumber + ": " + parcel.PropertyClassString);
 					builder.Append(',');
 					builder.Append(parcel.SchoolDistrict);
 					builder.Append(',');
