@@ -26,7 +26,7 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
-			<RowDefinition Height="7*"/>
+			<RowDefinition Height="8*"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
@@ -41,10 +41,12 @@
 				<RowDefinition Height="10"/>
 				<RowDefinition Height="76"/>
 				<RowDefinition Height="10"/>
-				<RowDefinition Height="76"/>
-				<RowDefinition Height="10"/>
-				<RowDefinition Height="50"/>
-			</Grid.RowDefinitions>
+                <RowDefinition Height="76"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
 
 			<!-- Parcel Number -->
 			<Border BorderThickness="0.5" Grid.Row="0" CornerRadius="15" BorderBrush="#FF616161">
@@ -102,10 +104,13 @@
 				</Grid>
 			</Border>
 
-			<!-- Get All -->
-			<Button x:Name="GetAllButton" Grid.Row="6" Content="Get All" Margin="175,10" Click="GetAllButton_OnClick"/>
+            <!-- Get All -->
+            <Button x:Name="GetAllButton" Grid.Row="6" Content="Get All" Margin="175,10" Click="GetAllButton_OnClick"/>
+			
+            <!-- Get All -->
+            <Button x:Name="CancelButton" Grid.Row="8" Content="Cancel" Margin="175,3" Click="CancelButton_OnClick" IsEnabled="False"/>
 
-		</Grid>
+        </Grid>
 		<StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"> <!-- Credits to Kent Boogaart on StackOverflow: http://stackoverflow.com/a/1373531 -->
 			<StatusBar.ItemsPanel>
 				<ItemsPanelTemplate>

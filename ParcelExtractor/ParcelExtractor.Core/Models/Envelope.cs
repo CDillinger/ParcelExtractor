@@ -57,6 +57,7 @@ namespace ParcelExtractor.Core.Models
 		public Body Body { get; set; }
 		public Parcel[] Results { get { return Body.Response.Results; } }
 		public bool HasResults { get { return Results.Length > 0; } }
+		public bool WasCancelled { get; set; } = false;
 	}
 
 	[XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]

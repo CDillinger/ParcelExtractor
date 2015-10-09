@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -65,8 +66,10 @@ namespace ParcelExtractor.Core
 			return string.Format("<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body><GetData xmlns=\"http://tempuri.org/\"><spName>{0}</spName><queryValue>{1}%</queryValue></GetData></s:Body></s:Envelope>", typeString, query);
 		}
 
-		public async Task<Envelope> QueryAsync(SearchType searchType, string query = "", string query2 = "")
+		public async Task<Envelope> QueryAsync(SearchType searchType, string query = "", string query2 = "", CancellationToken? ct = null)
 		{
+			Task<HttpResponseMessage> responseTask;
+
 			if (searchType == SearchType.Address)
 				query = string.Format("{0},{1}", query, query2);
 
@@ -75,7 +78,11 @@ namespace ParcelExtractor.Core
 			// Try to query the service...
 			try
 			{
-				var response = await _client.PostAsync("http://ingham-equalization.rsgis.msu.edu/ParcelServiceApp/ParcelServiceApp.svc", new StringContent(ComposeRequestString(searchType, query), Encoding.UTF8, "text/xml"));
+				responseTask = (ct == null) ? _client.PostAsync("http://ingham-equalization.rsgis.msu.edu/ParcelServiceApp/ParcelServiceApp.svc", new StringContent(ComposeRequestString(searchType, query), Encoding.UTF8, "text/xml"))
+					: _client.PostAsync("http://ingham-equalization.rsgis.msu.edu/ParcelServiceApp/ParcelServiceApp.svc", new StringContent(ComposeRequestString(searchType, query), Encoding.UTF8, "text/xml"), (CancellationToken)ct);
+
+				var response = await responseTask;
+
 				if (!response.IsSuccessStatusCode)
 					throw new ConnectionFailedException();
 
@@ -83,15 +90,21 @@ namespace ParcelExtractor.Core
 				var serializer = new XmlSerializer(typeof(Envelope));
 				return (Envelope)serializer.Deserialize(stream);
 			}
+			catch (OperationCanceledException)
+			{
+				return new Envelope { WasCancelled = true };
+			}
 			catch (Exception)
 			{
 				throw new ConnectionFailedException();
 			}
 		}
 
-		public async Task<bool> QueryAppendAsync(List<Parcel> parcels, SearchType searchType, string query = "", string query2 = "")
+		public async Task<bool?> QueryAppendAsync(List<Parcel> parcels, SearchType searchType, string query = "", string query2 = "", CancellationToken? ct = null)
 		{
-			var envelope = await QueryAsync(searchType, query, query2);
+			var envelope = await QueryAsync(searchType, query, query2, ct);
+			if (envelope.WasCancelled)
+				return null;
 			parcels.AddRange(envelope.Results);
 			return true;
 		}
