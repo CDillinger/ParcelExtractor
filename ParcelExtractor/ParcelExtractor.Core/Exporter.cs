@@ -38,7 +38,7 @@ namespace ParcelExtractor.Core
 		{
 			try
 			{
-				var builder = new StringBuilder("PIN,Owner Full Name,Owner Address,Owner City,Owner State,Owner ZIP,Property Number,Property Direction,Property Street,Property Apartment,Property City,Property ZIP,Property Class,Property School District,Property Acerage,Property SEV 2014,Property Tax 2014");
+				var builder = new StringBuilder("PIN,Owner Full Name,Owner Address,Owner City,Owner State,Owner ZIP,Property Number,Property Direction,Property Street,Property Apartment,Property City,Property ZIP,Property Class,Property School District,Property Acerage,Property SEV,Property Tax");
 				foreach (var parcel in parcels)
 				{
 					builder.AppendLine();
@@ -72,9 +72,9 @@ namespace ParcelExtractor.Core
 					builder.Append(',');
 					builder.Append(parcel.Acreage);
 					builder.Append(',');
-					builder.Append("\"" + parcel.StateEqualizedValue2014.ToString("C0") + "\"");
+					builder.Append("\"" + parcel.StateEqualizedValue.ToString("C0") + "\"");
 					builder.Append(',');
-					builder.Append("\"" + parcel.TaxableValue2014.ToString("C0") + "\"");
+					builder.Append("\"" + parcel.TaxableValue.ToString("C0") + "\"");
 					builder.Append(',');
 				}
 				File.WriteAllText(saveLocation, builder.ToString());

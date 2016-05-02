@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Collin Dillinger")]
 [assembly: AssemblyProduct("ParcelExtractor")]
-[assembly: AssemblyCopyright("Copyright © 2015  Collin Dillinger")]
+[assembly: AssemblyCopyright("Copyright © 2016 Collin Dillinger")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

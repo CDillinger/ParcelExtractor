@@ -128,23 +128,21 @@ namespace ParcelExtractor
 					if (!results.HasResults)
 					{
 						MessageBoxEx.Show(this, "The query returned no results.", "No Results!");
-						return;
 					}
-
-					var dialog = new SaveFileDialog
+					else
 					{
-						AddExtension = true,
-						FileName = query + ".csv",
-						Filter = "Comma Seperated Value Files (*.csv)|*.csv|Text Files (*.txt)|*.txt",
-						DefaultExt = "csv",
-						OverwritePrompt = true
-					};
-					var success = (bool)dialog.ShowDialog(this);
-					if (!success)
-						return;
-
-					var file = dialog.FileName;
-					Exporter.ExportToCSV(results, file);
+						var dialog = new SaveFileDialog
+						{
+							AddExtension = true,
+							FileName = query + ".csv",
+							Filter = "Comma Seperated Value Files (*.csv)|*.csv|Text Files (*.txt)|*.txt",
+							DefaultExt = "csv",
+							OverwritePrompt = true
+						};
+						var success = (bool)dialog.ShowDialog(this);
+						if (success)
+							Exporter.ExportToCSV(results, dialog.FileName);
+					}
 				}
 			}
 			catch (Exception ex)

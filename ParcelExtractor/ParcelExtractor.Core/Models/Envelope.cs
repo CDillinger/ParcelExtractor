@@ -98,8 +98,8 @@ namespace ParcelExtractor.Core.Models
 		private string _propertyStreet;
 		private string _propertyZIP;
 		private uint _schoolDistrict;
-		private double _stateEqualizedValue2014;
-		private double _taxableValue2014;
+		private double _stateEqualizedValue;
+		private double _taxableValue;
 		private string _center;
 		private string _geo;
 		private string _geom;
@@ -243,18 +243,18 @@ namespace ParcelExtractor.Core.Models
 			set { _schoolDistrict = value; }
 		}
 
-		[XmlElement("Sev2014")]
-		public double StateEqualizedValue2014
+		[XmlElement("Sev")]
+		public double StateEqualizedValue
 		{
-			get { return _stateEqualizedValue2014; }
-			set { _stateEqualizedValue2014 = value; }
+			get { return _stateEqualizedValue; }
+			set { _stateEqualizedValue = value; }
 		}
 
-		[XmlElement("Tax2014")]
-		public double TaxableValue2014
+		[XmlElement("Tax")]
+		public double TaxableValue
 		{
-			get { return _taxableValue2014; }
-			set { _taxableValue2014 = value; }
+			get { return _taxableValue; }
+			set { _taxableValue = value; }
 		}
 
 		[XmlElement("center")]
